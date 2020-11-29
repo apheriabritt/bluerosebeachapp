@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1000988188341",
+    "firebase_url": "https://blue-rose-beach.firebaseio.com",
+    "project_id": "blue-rose-beach",
+    "storage_bucket": "blue-rose-beach.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000988188341:android:2a01119ac31790bc7128fc",
+        "android_client_info": {
+          "package_name": "uk.co.bluerosebeach.bluerosebeachapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000988188341-a0u3lsts6r5a8dsbn8728hdnfuuc5scj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIeTrPXC0VrE9FPUBsRYZeKYUw3xEzvgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000988188341-a0u3lsts6r5a8dsbn8728hdnfuuc5scj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
