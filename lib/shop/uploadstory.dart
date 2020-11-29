@@ -245,7 +245,7 @@ class _UploadStoryState extends State<UploadStory> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0),
                       ),
-                      backgroundColor: Color(0xff98C7E3).withOpacity(0.5).withOpacity(0.5),
+                      backgroundColor: Color(0xff1B8DC9).withOpacity(1),
                       title: new Text("last steps...", style: TextStyle(
                           fontFamily: 'apheriafont',
                           fontSize: 30.0,
@@ -256,9 +256,16 @@ class _UploadStoryState extends State<UploadStory> {
                             key:formKey,
                             child: ListView(
                               children: <Widget>[
-                                Text('add a description:'),
+                                Text('add a description:',style: TextStyle(
+                                    fontFamily: 'apheriafont',
+                                    fontSize: 25.0,
+                                    color: Colors.white),),
                                 TextFormField(
                                   maxLines: 5,
+                                  style: TextStyle(
+                                      fontFamily: 'apheriafont',
+                                      fontSize: 25.0,
+                                      color: Color(0xff98C7E3)),
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'write something!';
