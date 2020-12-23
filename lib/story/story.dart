@@ -74,29 +74,33 @@ class _StoryState extends State<Story> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: storysList.length,
-              itemBuilder: (_, index) {
-                print('building ui');
-                return StoryUI(
-                  storysList[index].date,
-                  storysList[index].description,
-                  storysList[index].image1,
-                  storysList[index].image2,
-                  storysList[index].image3,
-                  storysList[index].image4,
-                  storysList[index].image5,
-                  storysList[index].time,
-                  storysList[index].order,
-                  storysList[index].storyid,
+          child: ListView(
+            children: [
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: storysList.length,
+                  itemBuilder: (_, index) {
+                    print('building ui');
+                    return StoryUI(
+                      storysList[index].date,
+                      storysList[index].description,
+                      storysList[index].image1,
+                      storysList[index].image2,
+                      storysList[index].image3,
+                      storysList[index].image4,
+                      storysList[index].image5,
+                      storysList[index].time,
+                      storysList[index].order,
+                      storysList[index].storyid,
 
 
 
-                );}),
+                    );}),
+              SizedBox(height:100)
+            ],
+
+          ),
         )
 
     );
@@ -307,10 +311,10 @@ Widget StoryUI(String date, description,image1,image2,image3,image4,image5,time,
                   children: <Widget>[
                     GalleryWidget,
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
                     ),
-
+                   
 
                   ],
                 ),

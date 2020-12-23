@@ -66,6 +66,8 @@ class _UploadShopState extends State<UploadShop> {
 
 
   String description='';
+  String price='';
+
 
 
   TextEditingController _controller = new TextEditingController();
@@ -204,6 +206,7 @@ class _UploadShopState extends State<UploadShop> {
 
       "date": date,
       "description": description,
+      "price": price,
       "image1": finalimage1,
       "image2": finalimage2,
       "image3": finalimage3,
@@ -275,6 +278,27 @@ class _UploadShopState extends State<UploadShop> {
                                   onSaved: (value)
                                   {
                                     return description = value;
+                                  },
+                                ),
+                                Text('add a price:',style: TextStyle(
+                                    fontFamily: 'apheriafont',
+                                    fontSize: 25.0,
+                                    color: Colors.white),),
+                                TextFormField(
+                                  maxLines: 5,
+                                  style: TextStyle(
+                                      fontFamily: 'apheriafont',
+                                      fontSize: 25.0,
+                                      color: Color(0xff98C7E3)),
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'write something!';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value)
+                                  {
+                                    return price = value;
                                   },
                                 ),
 

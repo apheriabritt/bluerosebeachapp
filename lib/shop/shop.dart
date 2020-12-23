@@ -36,6 +36,7 @@ class _ShopState extends State<Shop> {
         Shops shops = new Shops(
           DATA[individualKey]['date'],
           DATA[individualKey]['description'],
+          DATA[individualKey]['price'],
           DATA[individualKey]['image1'],
           DATA[individualKey]['image2'],
           DATA[individualKey]['image3'],
@@ -74,36 +75,41 @@ class _ShopState extends State<Shop> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              staggeredTileBuilder: (index) => new StaggeredTile.fit(2),
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemCount: shopsList.length,
-              itemBuilder: (_, index) {
-                print('building ui');
-                return ShopUI(
-                  shopsList[index].date,
-                  shopsList[index].description,
-                  shopsList[index].image1,
-                  shopsList[index].image2,
-                  shopsList[index].image3,
-                  shopsList[index].image4,
-                  shopsList[index].image5,
-                  shopsList[index].time,
-                  shopsList[index].order,
-                  shopsList[index].shopid,
+          child: ListView(
+            children: [
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: shopsList.length,
+                  itemBuilder: (_, index) {
+                    print('building ui');
+                    return ShopUI(
+                      shopsList[index].date,
+                      shopsList[index].description,
+                      shopsList[index].price,
+                      shopsList[index].image1,
+                      shopsList[index].image2,
+                      shopsList[index].image3,
+                      shopsList[index].image4,
+                      shopsList[index].image5,
+                      shopsList[index].time,
+                      shopsList[index].order,
+                      shopsList[index].shopid,
 
 
 
-                );}),
+                    );}),
+              SizedBox(height:100)
+            ],
+
+          ),
         )
 
     );
   }
 }
 
-Widget ShopUI(String date, description,image1,image2,image3,image4,image5,time,int order,shopid) {
+Widget ShopUI(String date, description,price,image1,image2,image3,image4,image5,time,int order,shopid) {
   String image = image1;
   return StatefulBuilder(
       builder: (context, setState) {
@@ -307,10 +313,13 @@ Widget ShopUI(String date, description,image1,image2,image3,image4,image5,time,i
                   children: <Widget>[
                     GalleryWidget,
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
                     ),
-
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(price,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
+                    ),
 
                   ],
                 ),
@@ -326,7 +335,7 @@ Widget ShopUI(String date, description,image1,image2,image3,image4,image5,time,i
                           heroTag:shopid,
                           onPressed: (){
                             getShopImagesData storyimagesdata;
-                            storyimagesdata=getShopImagesData(shopid,description,image1,image2,image3,image4,image5);
+                            storyimagesdata=getShopImagesData(shopid,description,price,image1,image2,image3,image4,image5);
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => EditImages(storyimagesdata)),

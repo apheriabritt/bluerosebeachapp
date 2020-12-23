@@ -13,8 +13,8 @@ class getShopImagesData
 
 {
   int shopid;
-  String description,oldimage1,oldimage2,oldimage3,oldimage4,oldimage5;
-  getShopImagesData(this.shopid,this.description,this.oldimage1,this.oldimage2,this.oldimage3,this.oldimage4,this.oldimage5);
+  String description,price,oldimage1,oldimage2,oldimage3,oldimage4,oldimage5;
+  getShopImagesData(this.shopid,this.description,this.price,this.oldimage1,this.oldimage2,this.oldimage3,this.oldimage4,this.oldimage5);
 }
 
 class EditImages extends StatefulWidget {
@@ -81,6 +81,8 @@ class _EditImagesState extends State<EditImages> {
   String finalimage4;
   String finalimage5;
   String description;
+  String price;
+
 
   @override
   void initState() {
@@ -170,6 +172,9 @@ class _EditImagesState extends State<EditImages> {
     if(description==null){
       print('description is null');
       description=shopimagesdata.description;}
+    if(price==null){
+      print('description is null');
+      price=shopimagesdata.price;}
 
 
     final StorageReference postImageRef = FirebaseStorage.instance.ref()
@@ -303,6 +308,7 @@ class _EditImagesState extends State<EditImages> {
     {
 
       "description": description,
+      "price":price,
       "image1": finalimage1,
       "image2": finalimage2,
       "image3": finalimage3,
@@ -416,6 +422,28 @@ class _EditImagesState extends State<EditImages> {
                                   {
                                     print('saved');print(description);
                                     return description = value;
+                                  },
+                                ),
+                                Text('add a price:',style: TextStyle(
+                                    fontFamily: 'apheriafont',
+                                    fontSize: 25.0,
+                                    color: Colors.white),),
+                                TextFormField(
+                                  maxLines: 5,
+                                  initialValue: shopimagesdata.price,
+                                  style: TextStyle(
+                                      fontFamily: 'apheriafont',
+                                      fontSize: 25.0,
+                                      color: Color(0xff98C7E3)),
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'write something!';
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value)
+                                  {
+                                    return price = value;
                                   },
                                 ),
 
