@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            leading:Container(),
+            leading:Container(width:10),
             backgroundColor: Color(0xff98C7E3),
             bottom: TabBar(
               labelStyle: TextStyle(fontFamily: 'apheriafont',fontSize: 20),
@@ -47,7 +47,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 Tab(icon: Icon(Icons.favorite_border),text: 'story',),
               ],
             ),
-            title: Center(child: Text('Blue Rose Beach',style:TextStyle(fontFamily: 'apheriafont',fontSize: 25))),
+            title: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircleAvatar(backgroundImage:
+                        NetworkImage('https://i.postimg.cc/DznP1NK3/isla-280x280-42849521-4amx5iqy2.jpg')),
+                    Text('Blue Rose Beach',style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
+                    Container(width:50)
+                  ],
+                ),
+              ],
+            ),
           ),
           body: TabBarView(
             children: [
