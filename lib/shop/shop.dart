@@ -1,4 +1,6 @@
 import 'package:bluerosebeachapp/constants/constants.dart';
+import 'package:bluerosebeachapp/main.dart';
+import 'package:bluerosebeachapp/shop/editshopimages.dart';
 import 'package:bluerosebeachapp/shop/uploadshop.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -105,6 +107,72 @@ Widget ShopUI(String date, description,image1,image2,image3,image4,image5,time,i
   String image = image1;
   return StatefulBuilder(
       builder: (context, setState) {
+        void delete(){
+          DatabaseReference ref = FirebaseDatabase.instance.reference();
+          ref.child("shops").child(shopid.toString()).remove();
+        }
+
+
+        void deletecheck(){
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                // return object of type Dialog
+                return AlertDialog(
+                  backgroundColor: Color(0xff1B8DC9).withOpacity(1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  title: new Text("just checking...", style: TextStyle(
+                      fontFamily: 'apheriafont',
+                      fontSize: 30.0,
+                      color:Color(0xff98C7E3)),),
+                  content: Container(
+                    height:200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        new Text("are you sure you want to delete?",
+                          style: TextStyle(fontFamily: 'apheriafont',
+                              fontSize: 25.0,
+                              color: Color(0xff98C7E3)),),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            FlatButton(
+                              child: new Text("no...", style: TextStyle(
+                                  fontFamily: 'apheriafont',
+                                  fontSize: 30.0,
+                                  color: Color(0xff98C7E3))),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+
+                            ),
+                            FlatButton(
+                              child: new Text("yes", style: TextStyle(
+                                  fontFamily: 'apheriafont',
+                                  fontSize: 30.0,
+                                  color: Color(0xff98C7E3)),),
+                              onPressed: () {
+                                delete();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => MyHomePage()),
+                                );
+                              },
+
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+        }
+
         print('setting state');
         Widget GalleryWidget;
         if (image2 == '') {
@@ -225,22 +293,62 @@ Widget ShopUI(String date, description,image1,image2,image3,image4,image5,time,i
                   child: Icon(Icons.arrow_back_ios, color: Color(0xff98C7E3)))
           );
         }
-        return Card(
-          color: Color(0xff98C7E3).withOpacity(0.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          elevation: 0.0,
-          child: Column(
-            children: <Widget>[
-              GalleryWidget,
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
-              ),
+        return Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                color: Color(0xff98C7E3).withOpacity(0.5),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                elevation: 0.0,
+                child: Column(
+                  children: <Widget>[
+                    GalleryWidget,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
+                    ),
 
-            ],
-          ),
+
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+                bottom:0,
+                left:0,
+                child: Container(height:40,width:40,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: FloatingActionButton(
+                          heroTag:shopid,
+                          onPressed: (){
+                            getShopImagesData storyimagesdata;
+                            storyimagesdata=getShopImagesData(shopid,description,image1,image2,image3,image4,image5);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => EditImages(storyimagesdata)),
+                            );
+
+                          },
+                          backgroundColor: Color(0xff1B8DC9),
+                          child:Icon(Icons.edit)),
+                    ))),
+            Positioned(
+                bottom:0,
+                right:0,
+                child: Container(height:40,width:40,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: FloatingActionButton(
+                          heroTag:'${shopid}delete',
+                          onPressed:deletecheck,
+                          backgroundColor: Color(0xff1B8DC9),
+                          child:Icon(Icons.delete)),
+                    ))),
+          ],
         );
       });
 }
