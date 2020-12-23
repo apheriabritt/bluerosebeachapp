@@ -1,5 +1,6 @@
 import 'package:bluerosebeachapp/constants/constants.dart';
-import 'package:bluerosebeachapp/shop/uploadstory.dart';
+import 'package:bluerosebeachapp/story/editstoryimages.dart';
+import 'package:bluerosebeachapp/story/uploadstory.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -225,22 +226,46 @@ Widget StoryUI(String date, description,image1,image2,image3,image4,image5,time,
                 child: Icon(Icons.arrow_back_ios, color: Color(0xff98C7E3)))
         );
       }
-      return Card(
-        color: Color(0xff98C7E3).withOpacity(0.5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 0.0,
-        child: Column(
-          children: <Widget>[
-            GalleryWidget,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
-            ),
+      return Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Color(0xff98C7E3).withOpacity(0.5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              elevation: 0.0,
+              child: Column(
+                children: <Widget>[
+                  GalleryWidget,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
+                  ),
 
-          ],
-        ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom:0,
+            left:0,
+              child: Container(height:40,width:40,
+                  child: FloatingActionButton(
+                    heroTag:storyid,
+                      onPressed: (){
+                        getStoryImagesData storyimagesdata;
+                        storyimagesdata=getStoryImagesData(storyid,description,image1,image2,image3,image4,image5);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EditImages(storyimagesdata)),
+                        );
+
+                      },
+                      backgroundColor: Color(0xff1B8DC9),
+                      child:Icon(Icons.edit)))),
+        ],
       );
     });
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:bluerosebeachapp/constants/constants.dart';
 import 'package:bluerosebeachapp/constants/loading.dart';
 import 'package:bluerosebeachapp/main.dart';
 import 'package:bluerosebeachapp/story/story.dart';
@@ -12,13 +13,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class UploadStory extends StatefulWidget {
+
   UploadStory({Key key}) : super(key: key);
   @override
   _UploadStoryState createState() => new _UploadStoryState();
 }
 
 class _UploadStoryState extends State<UploadStory> {
-
   bool loading = false;
 
   final formKey = new GlobalKey<FormState>();
@@ -64,6 +65,12 @@ class _UploadStoryState extends State<UploadStory> {
   String finalimage4;
   String finalimage5;
 
+  String oldimage='';
+  String oldimage2='';
+  String oldimage3='';
+  String oldimage4='';
+  String oldimage5='';
+
 
   String description='';
 
@@ -83,6 +90,9 @@ class _UploadStoryState extends State<UploadStory> {
   @override
   void initState() {
     super.initState();
+    //set data as passed data
+
+
   }
 
   void post () async {
@@ -112,7 +122,7 @@ class _UploadStoryState extends State<UploadStory> {
 
     var ImageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
 
-    final finalimage1 = ImageUrl.toString();
+ finalimage1 = ImageUrl.toString();
 
     ///upload image 2 if it's there, set it as '' if not
     if (url2==null)
@@ -185,7 +195,11 @@ class _UploadStoryState extends State<UploadStory> {
 
       finalimage5 = ImageUrl5.toString();}
 
-
+    if (finalimage1==null){finalimage1=oldimage;}
+    if (finalimage2==null){finalimage2=oldimage2.toString();}
+    if (finalimage3==null){finalimage3=oldimage3.toString();}
+    if (finalimage4==null){finalimage4=oldimage4.toString();}
+    if (finalimage5==null){finalimage5=oldimage5.toString();}
 
 
     var dbTimeKey = new DateTime.now();
@@ -460,6 +474,7 @@ class _UploadStoryState extends State<UploadStory> {
                   Image.file(url1,cacheWidth: 750,)
                       :
                   Image.file(myimage,cacheWidth: 750,),
+
                 ),
                 trailing: IconButton(icon: Icon(Icons.edit,color:Color(0xff98C7E3).withOpacity(0.5),size: 50,), onPressed: getImage),
               ),
@@ -624,7 +639,7 @@ child: Padding(
                   ),
                   child: (url5 != null) ?
                   Image.file(url5,cacheWidth: 750,)
-                      :
+                  :
                   Image.file(myimage5,cacheWidth: 750,),
                 ),
                 trailing: IconButton(icon: Icon(Icons.edit,color:Color(0xff98C7E3).withOpacity(0.5),size: 50,), onPressed: getImage5),
