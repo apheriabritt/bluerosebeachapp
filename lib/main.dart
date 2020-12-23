@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            leading:Container(),
             backgroundColor: Color(0xff98C7E3),
             bottom: TabBar(
               labelStyle: TextStyle(fontFamily: 'apheriafont',fontSize: 20),

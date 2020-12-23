@@ -314,7 +314,7 @@ Widget StoryUI(String date, description,image1,image2,image3,image4,image5,time,
                       padding: const EdgeInsets.all(5.0),
                       child: Text(description,style:TextStyle(fontFamily: 'apheriafont',fontSize: 25,color: Color(0xff1B8DC9))),
                     ),
-                   
+
 
                   ],
                 ),
